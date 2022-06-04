@@ -1,0 +1,24 @@
+body{
+	background-color: #f9f7ef;
+}
+p.start{
+	font-family: "Roboto Flex", sans-serif;
+	text-align: start;
+	letter-spacing: normal;
+	font-size: 34px;
+	color: #002241;
+	font-weight: bold;
+	border: solid;
+	border-radius: 5px;
+	width:155px;
+}
+h1{
+	font-family: "Roboto Flex", sans-serif;
+	letter-spacing: normal;
+	font-size: 25px;
+	color: #002241;
+	font-weight: bold;
+}
+h1.t{
+	font-size: 55px;
+}
