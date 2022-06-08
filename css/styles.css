@@ -22,3 +22,10 @@ h1{
 h1.t{
 	font-size: 55px;
 }
+h6{
+	font-family: "Roboto Flex", sans-serif;
+	letter-spacing: normal;
+	color: #002241;
+	font-weight: bold;
+	font-size: 15px;
+}
