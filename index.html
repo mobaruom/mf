@@ -5,30 +5,40 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bouthaina &amp; Yasser — Le mariage</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Parisienne&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:ital,wght@0,600;1,600&family=Parisienne&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
   :root{
-    --dusk-pink:#e7bcce;
-    --dusk-purple:#7d6a99;
-    --willow-green:#3f4f3a;
-    --willow-dark:#2a3527;
-    --gold:#c9a869;
-    --gold-light:#e6d3a3;
+    --blush:#f6dbe4;
+    --rose:#e3a9c6;
+    --mauve:#b47bb0;
+    --orchid:#835a92;
+    --plum:#4f2f5d;
+    --deep-plum:#25152c;
+    --gold:#cda86a;
+    --gold-light:#eeddb0;
     --cream:#faf5ec;
-    --ink:#2c2822;
+    --leaf:#7a6382;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   html{scroll-behavior:smooth;}
   body{
     font-family:'EB Garamond', serif;
     color:var(--cream);
-    background:var(--willow-dark);
+    background:linear-gradient(180deg,
+      var(--blush) 0%,
+      var(--rose) 13%,
+      var(--mauve) 27%,
+      var(--orchid) 44%,
+      var(--plum) 65%,
+      var(--deep-plum) 88%,
+      var(--deep-plum) 100%);
+    background-repeat:no-repeat;
+    background-size:100% 100%;
     overflow-x:hidden;
   }
   .display{font-family:'Cormorant Garamond', serif;}
   .script{font-family:'Parisienne', cursive;}
 
-  /* ---------- reusable scene background ---------- */
   .scene{
     position:relative;
     min-height:100vh;
@@ -36,28 +46,15 @@
     flex-direction:column;
     align-items:center;
     justify-content:center;
-    padding:6vh 6vw;
+    padding:8vh 6vw;
     text-align:center;
     overflow:hidden;
   }
-  .scene-bg{
-    position:absolute;inset:0;
-    background:
-      radial-gradient(120% 60% at 50% 0%, rgba(231,188,206,0.55), transparent 60%),
-      linear-gradient(180deg, #efc9d6 0%, #cfa4c0 22%, #8f79a8 45%, #4f5c62 68%, var(--willow-dark) 100%);
-    z-index:0;
-  }
-  .scene-bg::after{
+  #hero::before{
     content:"";
-    position:absolute;left:0;right:0;bottom:0;height:42%;
-    background:linear-gradient(180deg, rgba(63,79,58,0.15), var(--willow-dark) 85%);
+    position:absolute;inset:0;z-index:0;
+    background:linear-gradient(180deg, rgba(37,21,44,0.42) 0%, rgba(37,21,44,0.18) 55%, transparent 100%);
   }
-  .reeds{
-    position:absolute;bottom:0;left:0;right:0;height:38%;z-index:1;
-    background-repeat:repeat-x;background-position:bottom;background-size:220px 100%;
-    opacity:0.9;
-  }
-  .reeds svg{width:100%;height:100%;display:block;}
 
   .fireflies span{
     position:absolute;width:3px;height:3px;border-radius:50%;
@@ -73,20 +70,37 @@
     100%{opacity:0; transform:translateY(-60px);}
   }
 
-  .content{position:relative;z-index:2;max-width:640px;}
+  .content{position:relative;z-index:2;max-width:640px;width:100%;}
 
-  /* ---------- hero ---------- */
+  .flourish{position:absolute;width:min(30vw,150px);opacity:0.85;z-index:1;}
+  .flourish svg{width:100%;height:auto;display:block;}
+  .flourish.tl{top:3vh;left:2vw;}
+  .flourish.tr{top:3vh;right:2vw;transform:scaleX(-1);}
+  .flourish.bl{bottom:3vh;left:2vw;transform:scaleY(-1);}
+  .flourish.br{bottom:3vh;right:2vw;transform:scale(-1,-1);}
+
+  .blossom-scatter span{
+    position:absolute;width:16px;height:16px;opacity:0.18;z-index:0;
+  }
+  .blossom-scatter span svg{width:100%;height:100%;}
+
   .eyebrow{
     letter-spacing:0.35em;
     font-size:0.72rem;
     text-transform:uppercase;
     color:var(--gold-light);
-    margin-bottom:2.2rem;
+    margin-bottom:2rem;
+    text-shadow:0 1px 6px rgba(0,0,0,0.25);
   }
 
-  .heart-frame{width:min(58vw,260px);margin:0 auto 1.6rem;}
-  .heart-frame svg{width:100%;height:auto;display:block;}
-  .heart-frame path{
+  .heart-wrap{
+    position:relative;
+    width:min(60vw,260px);
+    aspect-ratio:200/190;
+    margin:0 auto 1.6rem;
+  }
+  .heart-wrap svg{width:100%;height:100%;display:block;}
+  .heart-wrap path{
     fill:none;
     stroke:var(--gold);
     stroke-width:1.4;
@@ -96,18 +110,24 @@
   }
   @keyframes draw{to{stroke-dashoffset:0;}}
   .monogram{
-    position:relative;
-    margin-top:-15.5vw;
-    max-width:200px;
-    font-size:2.6rem;
-    line-height:0.9;
+    position:absolute;left:24%;right:24%;top:36%;
+    display:flex;align-items:center;justify-content:space-between;
+    font-size:2.3rem;line-height:1;
   }
-  .monogram .amp{display:block;font-size:1.2rem;color:var(--gold-light);margin:0.1em 0;}
+  .monogram .letter{
+    font-family:'Playfair Display', serif;
+    font-style:italic;
+    font-weight:600;
+    color:var(--cream);
+    text-shadow:0 2px 10px rgba(0,0,0,0.35);
+  }
+  .monogram .amp{font-size:1.1rem;color:var(--gold-light);}
 
   h1.names{
-    font-size:clamp(2.4rem, 8vw, 3.6rem);
+    font-size:clamp(2.2rem, 7.5vw, 3.4rem);
     font-weight:400;
-    margin:0.6rem 0 0.3rem;
+    margin:0.4rem 0 0.3rem;
+    text-shadow:0 2px 12px rgba(0,0,0,0.3);
   }
   .surnames{
     letter-spacing:0.25em;
@@ -123,12 +143,15 @@
   }
   .time-line{
     font-size:0.95rem;
-    color:rgba(250,245,236,0.75);
-    margin-bottom:2.4rem;
+    color:rgba(250,245,236,0.85);
+    margin-bottom:2rem;
   }
 
+  .sprig{width:110px;margin:0 auto 2rem;opacity:0.9;}
+  .sprig svg{width:100%;height:auto;display:block;}
+
   .countdown{
-    display:flex;gap:1.4rem;justify-content:center;margin-bottom:2.6rem;
+    display:flex;gap:1.4rem;justify-content:center;margin-bottom:2.4rem;
   }
   .countdown div{display:flex;flex-direction:column;align-items:center;}
   .countdown .num{
@@ -136,6 +159,7 @@
     font-size:2rem;
     color:var(--cream);
     min-width:2.2ch;
+    text-shadow:0 2px 10px rgba(0,0,0,0.3);
   }
   .countdown .label{
     font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;
@@ -151,47 +175,55 @@
     font-size:0.8rem;
     letter-spacing:0.2em;
     text-transform:uppercase;
-    background:transparent;
+    background:rgba(37,21,44,0.15);
     cursor:pointer;
     transition:background 0.4s ease, color 0.4s ease;
   }
-  .cta:hover{background:var(--gold);color:var(--willow-dark);}
+  .cta:hover{background:var(--gold);color:var(--deep-plum);}
 
   .scroll-hint{
-    position:absolute;bottom:2.2rem;left:50%;transform:translateX(-50%);
-    font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;
-    color:rgba(250,245,236,0.6);
-    z-index:2;
+    margin-top:1.8rem;
+    display:flex;justify-content:center;
   }
   .scroll-hint::after{
-    content:"";display:block;width:1px;height:26px;background:rgba(250,245,236,0.5);
-    margin:0.6rem auto 0;animation:bob 2s ease-in-out infinite;
+    content:"";display:block;width:1px;height:26px;background:rgba(250,245,236,0.6);
+    animation:bob 2s ease-in-out infinite;
   }
   @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(6px);}}
 
-  /* ---------- message section ---------- */
-  .card-heart{
-    width:min(78vw, 380px);
-    margin:0 auto;
-    padding:3.2rem 1.6rem 2.4rem;
-    position:relative;
-  }
-  .card-heart .frame-bg{
-    position:absolute;inset:0;z-index:0;
-  }
-  .card-heart .frame-bg svg{width:100%;height:100%;}
-  .card-heart .frame-bg path{fill:none;stroke:var(--gold);stroke-width:1.2;opacity:0.9;}
-  .card-inner{position:relative;z-index:1;}
-  .card-inner .script{font-size:1.6rem;color:var(--gold-light);display:block;margin-bottom:1rem;}
-  .card-inner p{font-size:1.05rem;line-height:1.7;color:rgba(250,245,236,0.92);}
+  .couple-illus{width:min(84vw,360px);margin:0 auto 1.4rem;filter:drop-shadow(0 8px 16px rgba(0,0,0,0.28));}
+  .couple-illus svg{width:100%;height:auto;display:block;}
 
-  /* ---------- details ---------- */
+  .card{
+    position:relative;
+    width:min(82vw, 420px);
+    margin:0 auto;
+    padding:2.6rem 1.8rem;
+    border:1px solid var(--gold);
+    border-radius:6px;
+  }
+  .card::before{
+    content:"";
+    position:absolute;inset:6px;
+    border:1px solid rgba(205,168,106,0.5);
+    border-radius:3px;
+    pointer-events:none;
+  }
+  .card .corner{position:absolute;width:34px;height:34px;opacity:0.9;}
+  .card .corner svg{width:100%;height:100%;}
+  .card .corner.tl{top:-10px;left:-10px;}
+  .card .corner.tr{top:-10px;right:-10px;transform:scaleX(-1);}
+  .card .corner.bl{bottom:-10px;left:-10px;transform:scaleY(-1);}
+  .card .corner.br{bottom:-10px;right:-10px;transform:scale(-1,-1);}
+  .card .script{font-size:1.6rem;color:var(--gold-light);display:block;margin-bottom:1rem;}
+  .card p{font-size:1.05rem;line-height:1.75;color:rgba(250,245,236,0.92);}
+
   .details-list{
-    display:flex;flex-direction:column;gap:1.6rem;margin:2.4rem 0 2.8rem;width:100%;
+    display:flex;flex-direction:column;gap:1.5rem;margin:2rem 0 2.6rem;width:100%;max-width:360px;
   }
   .detail-row{
     display:flex;flex-direction:column;gap:0.2rem;
-    border-top:1px solid rgba(201,168,105,0.35);
+    border-top:1px solid rgba(205,168,106,0.4);
     padding-top:1rem;
   }
   .detail-row .label{
@@ -199,43 +231,83 @@
   }
   .detail-row .value{font-size:1.15rem;font-family:'Cormorant Garamond',serif;}
 
-  footer.scene{min-height:60vh;}
-  .sign{font-size:2rem;margin-top:1.6rem;}
-  .fineprint{font-size:0.7rem;letter-spacing:0.15em;color:rgba(250,245,236,0.5);margin-top:2.4rem;text-transform:uppercase;}
+  footer.scene{min-height:56vh;}
+  .sign{font-size:2rem;margin-top:1.4rem;}
+  .fineprint{font-size:0.7rem;letter-spacing:0.15em;color:rgba(250,245,236,0.6);margin-top:2rem;text-transform:uppercase;}
 
   @media (max-width:420px){
     .countdown{gap:0.9rem;}
     .countdown .num{font-size:1.6rem;}
+    .flourish{width:26vw;}
   }
 </style>
 </head>
 <body>
 
-<!-- ================= HERO ================= -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <g id="blossom">
+      <g fill="var(--rose)" opacity="0.95">
+        <ellipse cx="20" cy="10" rx="6" ry="10" transform="rotate(0 20 20)"/>
+        <ellipse cx="20" cy="10" rx="6" ry="10" transform="rotate(72 20 20)"/>
+        <ellipse cx="20" cy="10" rx="6" ry="10" transform="rotate(144 20 20)"/>
+        <ellipse cx="20" cy="10" rx="6" ry="10" transform="rotate(216 20 20)"/>
+        <ellipse cx="20" cy="10" rx="6" ry="10" transform="rotate(288 20 20)"/>
+      </g>
+      <circle cx="20" cy="20" r="4" fill="var(--gold)"/>
+    </g>
+  </defs>
+</svg>
+
 <section class="scene" id="hero">
-  <div class="scene-bg"></div>
-  <div class="reeds">
-    <svg viewBox="0 0 220 100" preserveAspectRatio="none">
-      <path d="M0,100 C10,60 14,40 12,0 M20,100 C28,55 24,30 30,0 M40,100 C48,70 44,45 52,0 M60,100 C66,60 62,35 70,0 M80,100 C88,65 84,40 92,0 M100,100 C108,55 104,30 112,0 M120,100 C128,70 124,45 132,0 M140,100 C146,60 142,35 150,0 M160,100 C168,65 164,40 172,0 M180,100 C188,55 184,30 192,0 M200,100 C208,70 204,45 212,0"
-        stroke="#2a3527" stroke-width="2" fill="none" opacity="0.55"/>
+  <div class="flourish tl">
+    <svg viewBox="0 0 140 140" fill="none">
+      <path d="M4,4 C30,6 40,20 40,40 C40,60 55,70 75,68" stroke="var(--gold)" stroke-width="1.3"/>
+      <use href="#blossom" x="6" y="4" width="26" height="26"/>
+      <use href="#blossom" x="30" y="34" width="20" height="20"/>
+      <path d="M20,30 C14,32 10,38 12,44" stroke="var(--leaf)" stroke-width="1.2"/>
+      <path d="M50,52 C46,58 48,64 54,66" stroke="var(--leaf)" stroke-width="1.2"/>
     </svg>
   </div>
+  <div class="flourish tr">
+    <svg viewBox="0 0 140 140" fill="none">
+      <path d="M4,4 C30,6 40,20 40,40 C40,60 55,70 75,68" stroke="var(--gold)" stroke-width="1.3"/>
+      <use href="#blossom" x="6" y="4" width="26" height="26"/>
+      <use href="#blossom" x="30" y="34" width="20" height="20"/>
+      <path d="M20,30 C14,32 10,38 12,44" stroke="var(--leaf)" stroke-width="1.2"/>
+      <path d="M50,52 C46,58 48,64 54,66" stroke="var(--leaf)" stroke-width="1.2"/>
+    </svg>
+  </div>
+
   <div class="fireflies" aria-hidden="true"></div>
 
   <div class="content">
     <p class="eyebrow">Une nouvelle histoire commence</p>
 
-    <div class="heart-frame">
+    <div class="heart-wrap">
       <svg viewBox="0 0 200 190" aria-hidden="true">
         <path d="M100,178 C40,140 8,102 8,64 C8,32 32,10 60,10 C78,10 92,20 100,36 C108,20 122,10 140,10 C168,10 192,32 192,64 C192,102 160,140 100,178 Z"/>
       </svg>
+      <div class="monogram">
+        <span class="letter display">B</span>
+        <span class="amp script">&amp;</span>
+        <span class="letter display">Y</span>
+      </div>
     </div>
-    <div class="monogram script">B<span class="amp">&amp;</span>Y</div>
 
     <h1 class="names display">Bouthaina<br>&amp; Yasser</h1>
     <p class="surnames">vous invitent à leur mariage</p>
     <p class="date-line display">8 Août 2026</p>
     <p class="time-line">À partir de 10h00 · Complexe Thermal Hammam Guergour</p>
+
+    <div class="sprig">
+      <svg viewBox="0 0 220 40" fill="none">
+        <path d="M10,20 C60,20 160,20 210,20" stroke="var(--gold)" stroke-width="1"/>
+        <use href="#blossom" x="96" y="4" width="28" height="28"/>
+        <path d="M96,20 C86,14 76,16 70,22" stroke="var(--leaf)" stroke-width="1.1"/>
+        <path d="M124,20 C134,14 144,16 150,22" stroke="var(--leaf)" stroke-width="1.1"/>
+      </svg>
+    </div>
 
     <div class="countdown" id="countdown">
       <div><span class="num" id="cd-days">00</span><span class="label">Jours</span></div>
@@ -245,36 +317,113 @@
     </div>
 
     <a href="#details" class="cta">Découvrir</a>
+    <div class="scroll-hint" aria-hidden="true"></div>
   </div>
-
-  <div class="scroll-hint">Faites défiler</div>
 </section>
 
-<!-- ================= MESSAGE ================= -->
-<section class="scene" id="message">
-  <div class="scene-bg" style="background:linear-gradient(180deg, var(--willow-dark), #354a37 50%, var(--willow-dark));"></div>
+<section class="scene" id="couple">
   <div class="content">
-    <div class="card-heart">
-      <div class="frame-bg">
-        <svg viewBox="0 0 200 230" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M100,10 C160,10 190,40 190,80 C190,110 175,125 150,125 L50,125 C25,125 10,110 10,80 C10,40 40,10 100,10 Z
-                   M10,120 L10,190 C10,205 25,220 50,220 L150,220 C175,220 190,205 190,190 L190,120"/>
-        </svg>
-      </div>
-      <div class="card-inner">
-        <span class="script">Chers amis et famille,</span>
-        <p>Nous avons le bonheur de vous inviter à célébrer notre mariage et à partager avec vous l'un des plus beaux jours de notre vie. Votre présence sera pour nous le plus précieux des cadeaux.</p>
-      </div>
+    <p class="eyebrow">Deux cœurs, un même chemin</p>
+    <div class="couple-illus">
+      <svg viewBox="0 0 240 190" fill="none">
+        <defs>
+          <linearGradient id="dressGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#faf5ec" stop-opacity="0.28"/>
+            <stop offset="100%" stop-color="#e3a9c6" stop-opacity="0.12"/>
+          </linearGradient>
+          <linearGradient id="suitGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#6a4779" stop-opacity="0.4"/>
+            <stop offset="100%" stop-color="#25152c" stop-opacity="0.4"/>
+          </linearGradient>
+        </defs>
+
+        <ellipse cx="120" cy="187" rx="92" ry="4" fill="rgba(0,0,0,0.18)"/>
+
+        <!-- mariée : voile -->
+        <path d="M61,21 C42,42 33,80 35,130" stroke="var(--gold-light)" stroke-width="1" opacity="0.5"/>
+        <path d="M95,21 C114,42 123,80 121,130" stroke="var(--gold-light)" stroke-width="1" opacity="0.5"/>
+
+        <!-- mariée : robe -->
+        <path d="M78,44 C58,50 46,68 40,95 C35,125 30,158 27,188 L129,188 C126,158 121,125 116,95 C110,68 98,50 78,44 Z"
+              fill="url(#dressGrad)" stroke="var(--gold)" stroke-width="1.3"/>
+        <path d="M45,96 C58,102 98,102 111,96" stroke="var(--gold)" stroke-width="1" fill="none"/>
+        <path d="M55,101 C49,130 44,159 39,186" stroke="var(--gold-light)" stroke-width="0.8" opacity="0.4"/>
+        <path d="M68,103 C65,132 63,161 61,187" stroke="var(--gold-light)" stroke-width="0.8" opacity="0.4"/>
+        <path d="M89,103 C92,132 94,161 96,187" stroke="var(--gold-light)" stroke-width="0.8" opacity="0.4"/>
+        <path d="M101,101 C107,130 112,159 117,186" stroke="var(--gold-light)" stroke-width="0.8" opacity="0.4"/>
+        <path d="M60,46 C54,50 52,56 54,62" stroke="var(--gold)" stroke-width="1"/>
+        <path d="M96,46 C102,50 104,56 102,62" stroke="var(--gold)" stroke-width="1"/>
+        <line x1="78" y1="37" x2="78" y2="44" stroke="var(--gold)" stroke-width="1.1"/>
+        <circle cx="78" cy="24" r="13" fill="rgba(250,245,236,0.14)" stroke="var(--gold)" stroke-width="1.3"/>
+
+        <!-- marié : costume -->
+        <path d="M140,120 L136,188 L158,188 L160,120 Z" fill="url(#suitGrad)" stroke="var(--gold)" stroke-width="1.2"/>
+        <path d="M164,120 L166,188 L188,188 L184,120 Z" fill="url(#suitGrad)" stroke="var(--gold)" stroke-width="1.2"/>
+        <line x1="162" y1="120" x2="162" y2="188" stroke="var(--gold)" stroke-width="0.6" opacity="0.5"/>
+        <path d="M162,44 L138,58 L134,120 L190,120 L186,58 Z" fill="url(#suitGrad)" stroke="var(--gold)" stroke-width="1.3"/>
+        <path d="M148,58 L162,80 L176,58" stroke="var(--gold)" stroke-width="1.1" fill="none"/>
+        <path d="M158,56 L150,50 L150,60 Z" fill="var(--gold)" opacity="0.9"/>
+        <path d="M166,56 L174,50 L174,60 Z" fill="var(--gold)" opacity="0.9"/>
+        <circle cx="162" cy="56" r="2" fill="var(--gold)"/>
+        <circle cx="162" cy="90" r="1.6" fill="var(--gold)"/>
+        <circle cx="162" cy="100" r="1.6" fill="var(--gold)"/>
+        <line x1="162" y1="37" x2="162" y2="44" stroke="var(--gold)" stroke-width="1.1"/>
+        <circle cx="162" cy="24" r="13" fill="rgba(37,21,44,0.18)" stroke="var(--gold)" stroke-width="1.3"/>
+
+        <!-- bras -->
+        <path d="M104,68 C112,78 116,86 118,96" stroke="var(--gold)" stroke-width="1.1" fill="none"/>
+        <path d="M138,68 C130,78 126,86 124,96" stroke="var(--gold)" stroke-width="1.1" fill="none"/>
+
+        <!-- bouquet -->
+        <use href="#blossom" x="100" y="88" width="30" height="30"/>
+        <use href="#blossom" x="118" y="78" width="26" height="26"/>
+        <use href="#blossom" x="132" y="90" width="28" height="28"/>
+        <use href="#blossom" x="108" y="104" width="24" height="24"/>
+        <use href="#blossom" x="126" y="106" width="22" height="22"/>
+        <use href="#blossom" x="118" y="96" width="18" height="18"/>
+        <path d="M110,120 C100,126 92,134 92,144" stroke="var(--leaf)" stroke-width="1.2" fill="none"/>
+        <path d="M132,122 C142,128 150,136 150,146" stroke="var(--leaf)" stroke-width="1.2" fill="none"/>
+        <path d="M120,118 C120,128 120,136 120,142" stroke="var(--leaf)" stroke-width="1.2" fill="none"/>
+        <path d="M112,122 C108,128 108,134 114,136" fill="var(--gold)" opacity="0.85"/>
+        <path d="M128,122 C132,128 132,134 126,136" fill="var(--gold)" opacity="0.85"/>
+        <circle cx="120" cy="122" r="2.4" fill="var(--gold)"/>
+        <line x1="118" y1="136" x2="115" y2="186" stroke="var(--leaf)" stroke-width="1.3"/>
+        <line x1="122" y1="136" x2="127" y2="186" stroke="var(--leaf)" stroke-width="1.3"/>
+        <line x1="120" y1="136" x2="121" y2="186" stroke="var(--leaf)" stroke-width="1.3"/>
+
+        <use href="#blossom" x="20" y="176" width="16" height="16" opacity="0.7"/>
+        <use href="#blossom" x="204" y="176" width="16" height="16" opacity="0.7"/>
+      </svg>
+    </div>
+    <p style="max-width:420px;font-size:1rem;line-height:1.7;color:rgba(250,245,236,0.85);">
+      Après le "oui", place à la fête — entourés de ceux qu'ils aiment, un bouquet à la main et le cœur plein de promesses.
+    </p>
+  </div>
+</section>
+
+<section class="scene" id="message">
+  <div class="content">
+    <div class="card">
+      <div class="corner tl"><svg viewBox="0 0 34 34"><path d="M2,2 C14,2 20,8 20,20" fill="none" stroke="var(--gold)" stroke-width="1.2"/><use href="#blossom" x="0" y="0" width="14" height="14"/></svg></div>
+      <div class="corner tr"><svg viewBox="0 0 34 34"><path d="M2,2 C14,2 20,8 20,20" fill="none" stroke="var(--gold)" stroke-width="1.2"/><use href="#blossom" x="0" y="0" width="14" height="14"/></svg></div>
+      <div class="corner bl"><svg viewBox="0 0 34 34"><path d="M2,2 C14,2 20,8 20,20" fill="none" stroke="var(--gold)" stroke-width="1.2"/><use href="#blossom" x="0" y="0" width="14" height="14"/></svg></div>
+      <div class="corner br"><svg viewBox="0 0 34 34"><path d="M2,2 C14,2 20,8 20,20" fill="none" stroke="var(--gold)" stroke-width="1.2"/><use href="#blossom" x="0" y="0" width="14" height="14"/></svg></div>
+
+      <span class="script">Chers amis et famille,</span>
+      <p>Nous avons le bonheur de vous inviter à célébrer notre mariage et à partager avec vous l'un des plus beaux jours de notre vie. Votre présence sera pour nous le plus précieux des cadeaux.</p>
     </div>
   </div>
 </section>
 
-<!-- ================= DETAILS ================= -->
 <section class="scene" id="details">
-  <div class="scene-bg" style="background:linear-gradient(180deg, var(--willow-dark), #4b3f57 55%, #6b5678);"></div>
+  <div class="blossom-scatter" aria-hidden="true">
+    <span style="top:8%;left:10%;"><svg viewBox="0 0 40 40"><use href="#blossom" width="40" height="40"/></svg></span>
+    <span style="top:75%;right:8%;"><svg viewBox="0 0 40 40"><use href="#blossom" width="40" height="40"/></svg></span>
+    <span style="top:40%;right:14%;"><svg viewBox="0 0 40 40"><use href="#blossom" width="40" height="40"/></svg></span>
+  </div>
   <div class="content">
     <p class="eyebrow">Vous êtes invités</p>
-    <h1 class="names display" style="font-size:clamp(1.8rem,6vw,2.6rem);">Informations pratiques</h1>
+    <h1 class="names display" style="font-size:clamp(1.7rem,5.5vw,2.4rem);">Informations pratiques</h1>
 
     <div class="details-list">
       <div class="detail-row">
@@ -295,9 +444,19 @@
   </div>
 </section>
 
-<!-- ================= FOOTER ================= -->
 <footer class="scene">
-  <div class="scene-bg" style="background:linear-gradient(180deg, #6b5678, var(--willow-dark) 60%);"></div>
+  <div class="flourish bl">
+    <svg viewBox="0 0 140 140" fill="none">
+      <path d="M4,4 C30,6 40,20 40,40 C40,60 55,70 75,68" stroke="var(--gold)" stroke-width="1.3"/>
+      <use href="#blossom" x="6" y="4" width="26" height="26"/>
+    </svg>
+  </div>
+  <div class="flourish br">
+    <svg viewBox="0 0 140 140" fill="none">
+      <path d="M4,4 C30,6 40,20 40,40 C40,60 55,70 75,68" stroke="var(--gold)" stroke-width="1.3"/>
+      <use href="#blossom" x="6" y="4" width="26" height="26"/>
+    </svg>
+  </div>
   <div class="content">
     <p class="eyebrow">Avec tout notre amour</p>
     <p class="sign script">Bouthaina &amp; Yasser</p>
@@ -306,7 +465,6 @@
 </footer>
 
 <script>
-  // ---- fireflies ----
   const fireflyLayer = document.querySelector('.fireflies');
   for(let i=0;i<18;i++){
     const s = document.createElement('span');
@@ -317,8 +475,6 @@
     fireflyLayer.appendChild(s);
   }
 
-  // ---- countdown ----
-  // Mariage le 8 Août 2026, 10h00 (heure d'Algérie, UTC+1)
   const weddingDate = new Date('2026-08-08T10:00:00+01:00').getTime();
 
   function updateCountdown(){
@@ -339,7 +495,6 @@
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
-  // ---- adresse : Google Maps ou Apple Plans selon l'appareil ----
   const venueName = "Complexe Thermal Hammam Guergour";
   const query = encodeURIComponent(venueName);
 
