@@ -1,3 +1,15 @@
+Parfait ! Vous avez trouvé le bon lien direct.
+
+Je viens de vérifier, il fonctionne parfaitement. Je vais maintenant vous donner le code HTML complet, modifié et prêt à l'emploi.
+
+J'ai fait 2 petites modifications pour que votre site soit parfait :
+
+1. J'ai remplacé le lien de l'image par votre nouveau lien Postimages.
+2. J'ai ajouté le mot "flex-wrap" dans le CSS du compte à rebours pour éviter que les chiffres ne sortent de l'écran sur les petits téléphones.
+
+Copiez tout le code ci-dessous, créez un nouveau fichier index.html, collez-le dedans et enregistrez. C'est prêt à être ouvert !
+
+```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -112,7 +124,7 @@ body {
       rgba(38, 37, 31, 0.28),
       rgba(38, 37, 31, 0.58)
     ),
-    url("images/mariage.jpg") center / cover;
+    url("https://i.postimg.cc/ZqJ82Qv5/60C53ED0-BB84-47E9-B4D0-8BF4E5D2099A.png") center / cover;
 }
 
 #hero::after {
@@ -219,6 +231,7 @@ body {
   justify-content: center;
   gap: 30px;
   margin-top: 38px;
+  flex-wrap: wrap; /* AJOUTÉ POUR ÉVITER LE DÉBORDEMENT SUR MOBILE */
 }
 
 .countdown-item {
@@ -577,14 +590,10 @@ footer {
     </p>
 
     <div class="photo-frame">
-
-      <!-- REMPLACE CE FICHIER PAR TA PHOTO -->
-
       <img
-        src="images/mariage.jpg"
+        src="https://i.postimg.cc/ZqJ82Qv5/60C53ED0-BB84-47E9-B4D0-8BF4E5D2099A.png"
         alt="Bouthaina et Yasser"
       >
-
     </div>
 
     <h2 class="section-title display">
@@ -936,3 +945,4 @@ document
 
 </body>
 </html>
+```
