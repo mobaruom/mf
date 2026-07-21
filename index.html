@@ -3,514 +3,935 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bouthaina &amp; Yasser — Le mariage</title>
+
+<title>Bouthaina & Yasser — Le mariage</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:ital,wght@0,600;1,600&family=Parisienne&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Parisienne&family=Playfair+Display:ital,wght@0,500;0,600;1,600&display=swap" rel="stylesheet">
+
 <style>
-  :root{
-    --blush:#f6dbe4;
-    --rose:#e3a9c6;
-    --mauve:#b47bb0;
-    --orchid:#835a92;
-    --plum:#4f2f5d;
-    --deep-plum:#25152c;
-    --gold:#cda86a;
-    --gold-light:#eeddb0;
-    --cream:#faf5ec;
-    --leaf:#7a6382;
-  }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  html{scroll-behavior:smooth;}
-  body{
-    font-family:'EB Garamond', serif;
-    color:var(--cream);
-    background:linear-gradient(180deg,
-      var(--blush) 0%,
-      var(--rose) 13%,
-      var(--mauve) 27%,
-      var(--orchid) 44%,
-      var(--plum) 65%,
-      var(--deep-plum) 88%,
-      var(--deep-plum) 100%);
-    background-repeat:no-repeat;
-    background-size:100% 100%;
-    overflow-x:hidden;
-  }
-  .display{font-family:'Cormorant Garamond', serif;}
-  .script{font-family:'Parisienne', cursive;}
 
-  .scene{
-    position:relative;
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    padding:8vh 6vw;
-    text-align:center;
-    overflow:hidden;
-  }
-  #hero::before{
-    content:"";
-    position:absolute;inset:0;z-index:0;
-    background:linear-gradient(180deg, rgba(37,21,44,0.42) 0%, rgba(37,21,44,0.18) 55%, transparent 100%);
-  }
+:root {
+  --ivory: #f8f4ec;
+  --cream: #eee5d6;
+  --champagne: #d8c39a;
+  --gold: #b9985b;
+  --gold-light: #ead9ad;
+  --sage: #a7ad99;
+  --olive: #6e765d;
+  --forest: #394234;
+  --brown: #4a4036;
+  --dark: #26251f;
+  --white: #fffdf8;
+}
 
-  .fireflies span{
-    position:absolute;width:3px;height:3px;border-radius:50%;
-    background:var(--gold-light);
-    box-shadow:0 0 6px 2px rgba(230,211,163,0.8);
-    animation:drift 9s ease-in-out infinite;
-    opacity:0;
-    z-index:1;
-  }
-  @keyframes drift{
-    0%{opacity:0; transform:translateY(0);}
-    20%{opacity:0.9;}
-    100%{opacity:0; transform:translateY(-60px);}
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  .content{position:relative;z-index:2;max-width:640px;width:100%;}
+html {
+  scroll-behavior: smooth;
+}
 
-  .flourish{position:absolute;width:min(30vw,150px);opacity:0.85;z-index:1;}
-  .flourish svg{width:100%;height:auto;display:block;}
-  .flourish.tl{top:3vh;left:2vw;}
-  .flourish.tr{top:3vh;right:2vw;transform:scaleX(-1);}
-  .flourish.bl{bottom:3vh;left:2vw;transform:scaleY(-1);}
-  .flourish.br{bottom:3vh;right:2vw;transform:scale(-1,-1);}
+body {
+  font-family: 'EB Garamond', serif;
+  color: var(--white);
+  background:
+    linear-gradient(
+      180deg,
+      #b8b9a8 0%,
+      #8e9881 20%,
+      #68745f 42%,
+      #4c5948 65%,
+      #30372c 100%
+    );
+  overflow-x: hidden;
+}
 
-  .blossom-scatter span{
-    position:absolute;width:16px;height:16px;opacity:0.18;z-index:0;
-  }
-  .blossom-scatter span svg{width:100%;height:100%;}
+.display {
+  font-family: 'Cormorant Garamond', serif;
+}
 
-  .eyebrow{
-    letter-spacing:0.35em;
-    font-size:0.72rem;
-    text-transform:uppercase;
-    color:var(--gold-light);
-    margin-bottom:2rem;
-    text-shadow:0 1px 6px rgba(0,0,0,0.25);
-  }
+.script {
+  font-family: 'Parisienne', cursive;
+}
 
-  .heart-wrap{
-    position:relative;
-    width:min(60vw,260px);
-    aspect-ratio:200/190;
-    margin:0 auto 1.6rem;
-  }
-  .heart-wrap svg{width:100%;height:100%;display:block;}
-  .heart-wrap path{
-    fill:none;
-    stroke:var(--gold);
-    stroke-width:1.4;
-    stroke-dasharray:900;
-    stroke-dashoffset:900;
-    animation:draw 2.4s ease forwards 0.3s;
-  }
-  @keyframes draw{to{stroke-dashoffset:0;}}
-  .monogram{
-    position:absolute;left:24%;right:24%;top:36%;
-    display:flex;align-items:center;justify-content:space-between;
-    font-size:2.3rem;line-height:1;
-  }
-  .monogram .letter{
-    font-family:'Playfair Display', serif;
-    font-style:italic;
-    font-weight:600;
-    color:var(--cream);
-    text-shadow:0 2px 10px rgba(0,0,0,0.35);
-  }
-  .monogram .amp{font-size:1.1rem;color:var(--gold-light);}
+/* =========================
+   GENERAL
+========================= */
 
-  h1.names{
-    font-size:clamp(2.2rem, 7.5vw, 3.4rem);
-    font-weight:400;
-    margin:0.4rem 0 0.3rem;
-    text-shadow:0 2px 12px rgba(0,0,0,0.3);
-  }
-  .surnames{
-    letter-spacing:0.25em;
-    text-transform:uppercase;
-    font-size:0.85rem;
-    color:var(--gold-light);
-    margin-bottom:1.4rem;
-  }
-  .date-line{
-    font-size:1.15rem;
-    letter-spacing:0.05em;
-    margin-bottom:0.3rem;
-  }
-  .time-line{
-    font-size:0.95rem;
-    color:rgba(250,245,236,0.85);
-    margin-bottom:2rem;
+.scene {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 90px 22px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.content {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  max-width: 680px;
+}
+
+.eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: 25px;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(35px);
+  transition: all 1.1s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================
+   HERO
+========================= */
+
+#hero {
+  min-height: 100svh;
+  background:
+    linear-gradient(
+      rgba(38, 37, 31, 0.28),
+      rgba(38, 37, 31, 0.58)
+    ),
+    url("images/mariage.jpg") center / cover;
+}
+
+#hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      circle at center,
+      transparent 20%,
+      rgba(38, 37, 31, 0.4) 100%
+    );
+  pointer-events: none;
+}
+
+.hero-content {
+  animation: heroAppear 1.6s ease forwards;
+}
+
+@keyframes heroAppear {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
   }
 
-  .sprig{width:110px;margin:0 auto 2rem;opacity:0.9;}
-  .sprig svg{width:100%;height:auto;display:block;}
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-  .countdown{
-    display:flex;gap:1.4rem;justify-content:center;margin-bottom:2.4rem;
-  }
-  .countdown div{display:flex;flex-direction:column;align-items:center;}
-  .countdown .num{
-    font-family:'Cormorant Garamond', serif;
-    font-size:2rem;
-    color:var(--cream);
-    min-width:2.2ch;
-    text-shadow:0 2px 10px rgba(0,0,0,0.3);
-  }
-  .countdown .label{
-    font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;
-    color:var(--gold-light);margin-top:0.3rem;
+.hero-label {
+  letter-spacing: 0.4em;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: 30px;
+}
+
+.names {
+  font-size: clamp(3.1rem, 12vw, 5.8rem);
+  font-weight: 400;
+  line-height: 0.9;
+  text-shadow: 0 5px 25px rgba(0,0,0,0.35);
+}
+
+.names span {
+  font-family: 'Parisienne', cursive;
+  color: var(--gold-light);
+  font-size: 0.55em;
+  display: block;
+  margin: 15px 0;
+}
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  margin-top: 28px;
+  color: var(--white);
+  letter-spacing: 0.06em;
+}
+
+.hero-date {
+  margin-top: 15px;
+  font-size: 1.4rem;
+  color: var(--gold-light);
+}
+
+.hero-location {
+  font-size: 0.95rem;
+  margin-top: 5px;
+  opacity: 0.9;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.cta {
+  display: inline-block;
+  margin-top: 35px;
+  padding: 15px 30px;
+  border: 1px solid var(--gold-light);
+  color: var(--white);
+  text-decoration: none;
+  letter-spacing: 0.2em;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  background: rgba(255,255,255,0.05);
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+
+.cta:hover {
+  background: var(--gold-light);
+  color: var(--dark);
+}
+
+/* =========================
+   COUNTDOWN
+========================= */
+
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 38px;
+}
+
+.countdown-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.countdown-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.2rem;
+  color: var(--white);
+}
+
+.countdown-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+}
+
+/* =========================
+   SECTIONS
+========================= */
+
+#story {
+  background:
+    linear-gradient(
+      rgba(58, 66, 52, 0.88),
+      rgba(58, 66, 52, 0.96)
+    );
+}
+
+#message {
+  background:
+    linear-gradient(
+      rgba(42, 47, 38, 0.93),
+      rgba(42, 47, 38, 0.98)
+    );
+}
+
+#details {
+  background:
+    linear-gradient(
+      rgba(53, 62, 48, 0.95),
+      rgba(37, 42, 34, 1)
+    );
+}
+
+/* =========================
+   PHOTO
+========================= */
+
+.photo-frame {
+  width: min(90vw, 520px);
+  margin: 0 auto 40px;
+  position: relative;
+  padding: 10px;
+  border: 1px solid var(--gold);
+  background: rgba(255,255,255,0.05);
+}
+
+.photo-frame::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(234,217,173,0.45);
+  pointer-events: none;
+}
+
+.photo-frame img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center;
+  filter:
+    saturate(0.85)
+    contrast(1.05)
+    brightness(0.96);
+}
+
+.section-title {
+  font-size: clamp(2rem, 8vw, 3.5rem);
+  font-weight: 400;
+  margin-bottom: 25px;
+}
+
+.section-text {
+  max-width: 500px;
+  margin: auto;
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.88);
+}
+
+/* =========================
+   DECORATION
+========================= */
+
+.decor {
+  width: 130px;
+  height: 1px;
+  background: var(--gold);
+  margin: 28px auto;
+  position: relative;
+}
+
+.decor::after {
+  content: "✦";
+  position: absolute;
+  left: 50%;
+  top: -12px;
+  transform: translateX(-50%);
+  color: var(--gold-light);
+  background: var(--forest);
+  padding: 0 12px;
+  font-size: 17px;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.card {
+  max-width: 550px;
+  margin: auto;
+  padding: 45px 30px;
+  border: 1px solid var(--gold);
+  position: relative;
+  background: rgba(255,255,255,0.035);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(234,217,173,0.4);
+  pointer-events: none;
+}
+
+.card-title {
+  font-size: 2rem;
+  color: var(--gold-light);
+  margin-bottom: 22px;
+}
+
+.card-text {
+  font-size: 1.15rem;
+  line-height: 1.8;
+}
+
+/* =========================
+   DETAILS
+========================= */
+
+.details-list {
+  max-width: 430px;
+  margin: 35px auto;
+}
+
+.detail {
+  padding: 25px 0;
+  border-top: 1px solid rgba(234,217,173,0.45);
+}
+
+.detail:last-child {
+  border-bottom: 1px solid rgba(234,217,173,0.45);
+}
+
+.detail-label {
+  display: block;
+  color: var(--gold-light);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.detail-value {
+  font-size: 1.3rem;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+  min-height: 65vh !important;
+  background: #252a22;
+}
+
+.signature {
+  font-size: 3rem;
+  color: var(--gold-light);
+}
+
+.footer-date {
+  margin-top: 20px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.65);
+}
+
+/* =========================
+   FLOATING PARTICLES
+========================= */
+
+.particle {
+  position: fixed;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--gold-light);
+  box-shadow: 0 0 12px var(--gold-light);
+  pointer-events: none;
+  opacity: 0;
+  animation: floatParticle 10s infinite ease-in-out;
+  z-index: 1;
+}
+
+@keyframes floatParticle {
+
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
   }
 
-  .cta{
-    display:inline-block;
-    border:1px solid var(--gold);
-    color:var(--cream);
-    text-decoration:none;
-    padding:0.85em 2.2em;
-    font-size:0.8rem;
-    letter-spacing:0.2em;
-    text-transform:uppercase;
-    background:rgba(37,21,44,0.15);
-    cursor:pointer;
-    transition:background 0.4s ease, color 0.4s ease;
+  25% {
+    opacity: 0.7;
   }
-  .cta:hover{background:var(--gold);color:var(--deep-plum);}
 
-  .scroll-hint{
-    margin-top:1.8rem;
-    display:flex;justify-content:center;
+  75% {
+    opacity: 0.5;
   }
-  .scroll-hint::after{
-    content:"";display:block;width:1px;height:26px;background:rgba(250,245,236,0.6);
-    animation:bob 2s ease-in-out infinite;
-  }
-  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(6px);}}
 
-  .couple-illus{width:min(84vw,360px);margin:0 auto 1.4rem;filter:drop-shadow(0 8px 16px rgba(0,0,0,0.28));}
-  .couple-illus svg{width:100%;height:auto;display:block;}
+  100% {
+    opacity: 0;
+    transform: translateY(-120px);
+  }
 
-  .card{
-    position:relative;
-    width:min(82vw, 420px);
-    margin:0 auto;
-    padding:2.6rem 1.8rem;
-    border:1px solid var(--gold);
-    border-radius:6px;
-  }
-  .card::before{
-    content:"";
-    position:absolute;inset:6px;
-    border:1px solid rgba(205,168,106,0.5);
-    border-radius:3px;
-    pointer-events:none;
-  }
-  .card .corner{position:absolute;width:34px;height:34px;opacity:0.9;}
-  .card .corner svg{width:100%;height:100%;}
-  .card .corner.tl{top:-10px;left:-10px;}
-  .card .corner.tr{top:-10px;right:-10px;transform:scaleX(-1);}
-  .card .corner.bl{bottom:-10px;left:-10px;transform:scaleY(-1);}
-  .card .corner.br{bottom:-10px;right:-10px;transform:scale(-1,-1);}
-  .card .script{font-size:1.6rem;color:var(--gold-light);display:block;margin-bottom:1rem;}
-  .card p{font-size:1.05rem;line-height:1.75;color:rgba(250,245,236,0.92);}
+}
 
-  .details-list{
-    display:flex;flex-direction:column;gap:1.5rem;margin:2rem 0 2.6rem;width:100%;max-width:360px;
-  }
-  .detail-row{
-    display:flex;flex-direction:column;gap:0.2rem;
-    border-top:1px solid rgba(205,168,106,0.4);
-    padding-top:1rem;
-  }
-  .detail-row .label{
-    font-size:0.62rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold-light);
-  }
-  .detail-row .value{font-size:1.15rem;font-family:'Cormorant Garamond',serif;}
+/* =========================
+   MOBILE
+========================= */
 
-  footer.scene{min-height:56vh;}
-  .sign{font-size:2rem;margin-top:1.4rem;}
-  .fineprint{font-size:0.7rem;letter-spacing:0.15em;color:rgba(250,245,236,0.6);margin-top:2rem;text-transform:uppercase;}
+@media (max-width: 500px) {
 
-  @media (max-width:420px){
-    .countdown{gap:0.9rem;}
-    .countdown .num{font-size:1.6rem;}
-    .flourish{width:26vw;}
+  .scene {
+    padding: 75px 20px;
   }
+
+  .countdown {
+    gap: 17px;
+  }
+
+  .countdown-number {
+    font-size: 1.65rem;
+  }
+
+  .names {
+    font-size: 3.5rem;
+  }
+
+  .photo-frame {
+    width: 92vw;
+  }
+
+}
+
 </style>
 </head>
+
 <body>
 
-<svg width="0" height="0" style="position:absolute">
-  <defs>
-    <g id="blossom">
-      <g fill="var(--rose)" opacity="0.95">
-        <ellipse cx="20" cy="10" rx="6" ry="10" transform="rotate(0 20 20)"/>
-        <ellipse cx="20" cy="10" rx="6" ry="10" transform="rotate(72 20 20)"/>
-        <ellipse cx="20" cy="10" rx="6" ry="10" transform="rotate(144 20 20)"/>
-        <ellipse cx="20" cy="10" rx="6" ry="10" transform="rotate(216 20 20)"/>
-        <ellipse cx="20" cy="10" rx="6" ry="10" transform="rotate(288 20 20)"/>
-      </g>
-      <circle cx="20" cy="20" r="4" fill="var(--gold)"/>
-    </g>
-  </defs>
-</svg>
+<!-- PARTICULES -->
+<div id="particles"></div>
+
+<!-- =========================
+     HERO
+========================= -->
 
 <section class="scene" id="hero">
-  <div class="flourish tl">
-    <svg viewBox="0 0 140 140" fill="none">
-      <path d="M4,4 C30,6 40,20 40,40 C40,60 55,70 75,68" stroke="var(--gold)" stroke-width="1.3"/>
-      <use href="#blossom" x="6" y="4" width="26" height="26"/>
-      <use href="#blossom" x="30" y="34" width="20" height="20"/>
-      <path d="M20,30 C14,32 10,38 12,44" stroke="var(--leaf)" stroke-width="1.2"/>
-      <path d="M50,52 C46,58 48,64 54,66" stroke="var(--leaf)" stroke-width="1.2"/>
-    </svg>
-  </div>
-  <div class="flourish tr">
-    <svg viewBox="0 0 140 140" fill="none">
-      <path d="M4,4 C30,6 40,20 40,40 C40,60 55,70 75,68" stroke="var(--gold)" stroke-width="1.3"/>
-      <use href="#blossom" x="6" y="4" width="26" height="26"/>
-      <use href="#blossom" x="30" y="34" width="20" height="20"/>
-      <path d="M20,30 C14,32 10,38 12,44" stroke="var(--leaf)" stroke-width="1.2"/>
-      <path d="M50,52 C46,58 48,64 54,66" stroke="var(--leaf)" stroke-width="1.2"/>
-    </svg>
-  </div>
 
-  <div class="fireflies" aria-hidden="true"></div>
+  <div class="content hero-content">
 
-  <div class="content">
-    <p class="eyebrow">Une nouvelle histoire commence</p>
-
-    <div class="heart-wrap">
-      <svg viewBox="0 0 200 190" aria-hidden="true">
-        <path d="M100,178 C40,140 8,102 8,64 C8,32 32,10 60,10 C78,10 92,20 100,36 C108,20 122,10 140,10 C168,10 192,32 192,64 C192,102 160,140 100,178 Z"/>
-      </svg>
-      <div class="monogram">
-        <span class="letter display">B</span>
-        <span class="amp script">&amp;</span>
-        <span class="letter display">Y</span>
-      </div>
+    <div class="hero-label">
+      Une nouvelle histoire commence
     </div>
 
-    <h1 class="names display">Bouthaina<br>&amp; Yasser</h1>
-    <p class="surnames">vous invitent à leur mariage</p>
-    <p class="date-line display">8 Août 2026</p>
-    <p class="time-line">À partir de 10h00 · Complexe Thermal Hammam Guergour</p>
+    <h1 class="names display">
+      Bouthaina
+      <span>&</span>
+      Yasser
+    </h1>
 
-    <div class="sprig">
-      <svg viewBox="0 0 220 40" fill="none">
-        <path d="M10,20 C60,20 160,20 210,20" stroke="var(--gold)" stroke-width="1"/>
-        <use href="#blossom" x="96" y="4" width="28" height="28"/>
-        <path d="M96,20 C86,14 76,16 70,22" stroke="var(--leaf)" stroke-width="1.1"/>
-        <path d="M124,20 C134,14 144,16 150,22" stroke="var(--leaf)" stroke-width="1.1"/>
-      </svg>
-    </div>
-
-    <div class="countdown" id="countdown">
-      <div><span class="num" id="cd-days">00</span><span class="label">Jours</span></div>
-      <div><span class="num" id="cd-hours">00</span><span class="label">Heures</span></div>
-      <div><span class="num" id="cd-min">00</span><span class="label">Minutes</span></div>
-      <div><span class="num" id="cd-sec">00</span><span class="label">Secondes</span></div>
-    </div>
-
-    <a href="#details" class="cta">Découvrir</a>
-    <div class="scroll-hint" aria-hidden="true"></div>
-  </div>
-</section>
-
-<section class="scene" id="couple">
-  <div class="content">
-    <p class="eyebrow">Deux cœurs, un même chemin</p>
-    <div class="couple-illus">
-      <svg viewBox="0 0 240 190" fill="none">
-        <defs>
-          <linearGradient id="dressGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#faf5ec" stop-opacity="0.28"/>
-            <stop offset="100%" stop-color="#e3a9c6" stop-opacity="0.12"/>
-          </linearGradient>
-          <linearGradient id="suitGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#6a4779" stop-opacity="0.4"/>
-            <stop offset="100%" stop-color="#25152c" stop-opacity="0.4"/>
-          </linearGradient>
-        </defs>
-
-        <ellipse cx="120" cy="187" rx="92" ry="4" fill="rgba(0,0,0,0.18)"/>
-
-        <!-- mariée : voile -->
-        <path d="M61,21 C42,42 33,80 35,130" stroke="var(--gold-light)" stroke-width="1" opacity="0.5"/>
-        <path d="M95,21 C114,42 123,80 121,130" stroke="var(--gold-light)" stroke-width="1" opacity="0.5"/>
-
-        <!-- mariée : robe -->
-        <path d="M78,44 C58,50 46,68 40,95 C35,125 30,158 27,188 L129,188 C126,158 121,125 116,95 C110,68 98,50 78,44 Z"
-              fill="url(#dressGrad)" stroke="var(--gold)" stroke-width="1.3"/>
-        <path d="M45,96 C58,102 98,102 111,96" stroke="var(--gold)" stroke-width="1" fill="none"/>
-        <path d="M55,101 C49,130 44,159 39,186" stroke="var(--gold-light)" stroke-width="0.8" opacity="0.4"/>
-        <path d="M68,103 C65,132 63,161 61,187" stroke="var(--gold-light)" stroke-width="0.8" opacity="0.4"/>
-        <path d="M89,103 C92,132 94,161 96,187" stroke="var(--gold-light)" stroke-width="0.8" opacity="0.4"/>
-        <path d="M101,101 C107,130 112,159 117,186" stroke="var(--gold-light)" stroke-width="0.8" opacity="0.4"/>
-        <path d="M60,46 C54,50 52,56 54,62" stroke="var(--gold)" stroke-width="1"/>
-        <path d="M96,46 C102,50 104,56 102,62" stroke="var(--gold)" stroke-width="1"/>
-        <line x1="78" y1="37" x2="78" y2="44" stroke="var(--gold)" stroke-width="1.1"/>
-        <circle cx="78" cy="24" r="13" fill="rgba(250,245,236,0.14)" stroke="var(--gold)" stroke-width="1.3"/>
-
-        <!-- marié : costume -->
-        <path d="M140,120 L136,188 L158,188 L160,120 Z" fill="url(#suitGrad)" stroke="var(--gold)" stroke-width="1.2"/>
-        <path d="M164,120 L166,188 L188,188 L184,120 Z" fill="url(#suitGrad)" stroke="var(--gold)" stroke-width="1.2"/>
-        <line x1="162" y1="120" x2="162" y2="188" stroke="var(--gold)" stroke-width="0.6" opacity="0.5"/>
-        <path d="M162,44 L138,58 L134,120 L190,120 L186,58 Z" fill="url(#suitGrad)" stroke="var(--gold)" stroke-width="1.3"/>
-        <path d="M148,58 L162,80 L176,58" stroke="var(--gold)" stroke-width="1.1" fill="none"/>
-        <path d="M158,56 L150,50 L150,60 Z" fill="var(--gold)" opacity="0.9"/>
-        <path d="M166,56 L174,50 L174,60 Z" fill="var(--gold)" opacity="0.9"/>
-        <circle cx="162" cy="56" r="2" fill="var(--gold)"/>
-        <circle cx="162" cy="90" r="1.6" fill="var(--gold)"/>
-        <circle cx="162" cy="100" r="1.6" fill="var(--gold)"/>
-        <line x1="162" y1="37" x2="162" y2="44" stroke="var(--gold)" stroke-width="1.1"/>
-        <circle cx="162" cy="24" r="13" fill="rgba(37,21,44,0.18)" stroke="var(--gold)" stroke-width="1.3"/>
-
-        <!-- bras -->
-        <path d="M104,68 C112,78 116,86 118,96" stroke="var(--gold)" stroke-width="1.1" fill="none"/>
-        <path d="M138,68 C130,78 126,86 124,96" stroke="var(--gold)" stroke-width="1.1" fill="none"/>
-
-        <!-- bouquet -->
-        <use href="#blossom" x="100" y="88" width="30" height="30"/>
-        <use href="#blossom" x="118" y="78" width="26" height="26"/>
-        <use href="#blossom" x="132" y="90" width="28" height="28"/>
-        <use href="#blossom" x="108" y="104" width="24" height="24"/>
-        <use href="#blossom" x="126" y="106" width="22" height="22"/>
-        <use href="#blossom" x="118" y="96" width="18" height="18"/>
-        <path d="M110,120 C100,126 92,134 92,144" stroke="var(--leaf)" stroke-width="1.2" fill="none"/>
-        <path d="M132,122 C142,128 150,136 150,146" stroke="var(--leaf)" stroke-width="1.2" fill="none"/>
-        <path d="M120,118 C120,128 120,136 120,142" stroke="var(--leaf)" stroke-width="1.2" fill="none"/>
-        <path d="M112,122 C108,128 108,134 114,136" fill="var(--gold)" opacity="0.85"/>
-        <path d="M128,122 C132,128 132,134 126,136" fill="var(--gold)" opacity="0.85"/>
-        <circle cx="120" cy="122" r="2.4" fill="var(--gold)"/>
-        <line x1="118" y1="136" x2="115" y2="186" stroke="var(--leaf)" stroke-width="1.3"/>
-        <line x1="122" y1="136" x2="127" y2="186" stroke="var(--leaf)" stroke-width="1.3"/>
-        <line x1="120" y1="136" x2="121" y2="186" stroke="var(--leaf)" stroke-width="1.3"/>
-
-        <use href="#blossom" x="20" y="176" width="16" height="16" opacity="0.7"/>
-        <use href="#blossom" x="204" y="176" width="16" height="16" opacity="0.7"/>
-      </svg>
-    </div>
-    <p style="max-width:420px;font-size:1rem;line-height:1.7;color:rgba(250,245,236,0.85);">
-      Après le "oui", place à la fête — entourés de ceux qu'ils aiment, un bouquet à la main et le cœur plein de promesses.
+    <p class="hero-subtitle">
+      Vous invitent à célébrer leur mariage
     </p>
+
+    <p class="hero-date display">
+      8 Août 2026
+    </p>
+
+    <p class="hero-location">
+      Complexe Thermal Hammam Guergour
+    </p>
+
+    <!-- COMPTE À REBOURS -->
+
+    <div class="countdown">
+
+      <div class="countdown-item">
+        <span class="countdown-number" id="days">00</span>
+        <span class="countdown-label">Jours</span>
+      </div>
+
+      <div class="countdown-item">
+        <span class="countdown-number" id="hours">00</span>
+        <span class="countdown-label">Heures</span>
+      </div>
+
+      <div class="countdown-item">
+        <span class="countdown-number" id="minutes">00</span>
+        <span class="countdown-label">Minutes</span>
+      </div>
+
+      <div class="countdown-item">
+        <span class="countdown-number" id="seconds">00</span>
+        <span class="countdown-label">Secondes</span>
+      </div>
+
+    </div>
+
+    <a href="#story" class="cta">
+      Découvrir notre histoire
+    </a>
+
   </div>
+
 </section>
+
+
+<!-- =========================
+     PHOTO / STORY
+========================= -->
+
+<section class="scene" id="story">
+
+  <div class="content reveal">
+
+    <p class="eyebrow">
+      Deux cœurs, un même chemin
+    </p>
+
+    <div class="photo-frame">
+
+      <!-- REMPLACE CE FICHIER PAR TA PHOTO -->
+
+      <img
+        src="images/mariage.jpg"
+        alt="Bouthaina et Yasser"
+      >
+
+    </div>
+
+    <h2 class="section-title display">
+      Le début d'une nouvelle histoire
+    </h2>
+
+    <div class="decor"></div>
+
+    <p class="section-text">
+      Après le « oui », une nouvelle aventure commence.
+      Nous sommes heureux de pouvoir partager cette journée
+      si particulière avec les personnes qui comptent le plus pour nous.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     MESSAGE
+========================= -->
 
 <section class="scene" id="message">
-  <div class="content">
-    <div class="card">
-      <div class="corner tl"><svg viewBox="0 0 34 34"><path d="M2,2 C14,2 20,8 20,20" fill="none" stroke="var(--gold)" stroke-width="1.2"/><use href="#blossom" x="0" y="0" width="14" height="14"/></svg></div>
-      <div class="corner tr"><svg viewBox="0 0 34 34"><path d="M2,2 C14,2 20,8 20,20" fill="none" stroke="var(--gold)" stroke-width="1.2"/><use href="#blossom" x="0" y="0" width="14" height="14"/></svg></div>
-      <div class="corner bl"><svg viewBox="0 0 34 34"><path d="M2,2 C14,2 20,8 20,20" fill="none" stroke="var(--gold)" stroke-width="1.2"/><use href="#blossom" x="0" y="0" width="14" height="14"/></svg></div>
-      <div class="corner br"><svg viewBox="0 0 34 34"><path d="M2,2 C14,2 20,8 20,20" fill="none" stroke="var(--gold)" stroke-width="1.2"/><use href="#blossom" x="0" y="0" width="14" height="14"/></svg></div>
 
-      <span class="script">Chers amis et famille,</span>
-      <p>Nous avons le bonheur de vous inviter à célébrer notre mariage et à partager avec vous l'un des plus beaux jours de notre vie. Votre présence sera pour nous le plus précieux des cadeaux.</p>
+  <div class="content reveal">
+
+    <div class="card">
+
+      <h2 class="card-title script">
+        Chers amis et famille,
+      </h2>
+
+      <p class="card-text">
+        Nous avons le bonheur de vous inviter à célébrer notre mariage
+        et à partager avec nous l'un des plus beaux jours de notre vie.
+        Votre présence sera pour nous le plus précieux des cadeaux.
+      </p>
+
     </div>
+
   </div>
+
 </section>
+
+
+<!-- =========================
+     DETAILS
+========================= -->
 
 <section class="scene" id="details">
-  <div class="blossom-scatter" aria-hidden="true">
-    <span style="top:8%;left:10%;"><svg viewBox="0 0 40 40"><use href="#blossom" width="40" height="40"/></svg></span>
-    <span style="top:75%;right:8%;"><svg viewBox="0 0 40 40"><use href="#blossom" width="40" height="40"/></svg></span>
-    <span style="top:40%;right:14%;"><svg viewBox="0 0 40 40"><use href="#blossom" width="40" height="40"/></svg></span>
-  </div>
-  <div class="content">
-    <p class="eyebrow">Vous êtes invités</p>
-    <h1 class="names display" style="font-size:clamp(1.7rem,5.5vw,2.4rem);">Informations pratiques</h1>
+
+  <div class="content reveal">
+
+    <p class="eyebrow">
+      Vous êtes invités
+    </p>
+
+    <h2 class="section-title display">
+      Informations pratiques
+    </h2>
 
     <div class="details-list">
-      <div class="detail-row">
-        <span class="label">Date</span>
-        <span class="value">Samedi 8 Août 2026</span>
+
+      <div class="detail">
+
+        <span class="detail-label">
+          Date
+        </span>
+
+        <span class="detail-value">
+          Samedi 8 Août 2026
+        </span>
+
       </div>
-      <div class="detail-row">
-        <span class="label">Heure</span>
-        <span class="value">10h00</span>
+
+
+      <div class="detail">
+
+        <span class="detail-label">
+          Heure
+        </span>
+
+        <span class="detail-value">
+          À partir de 10h00
+        </span>
+
       </div>
-      <div class="detail-row">
-        <span class="label">Lieu</span>
-        <span class="value">Complexe Thermal Hammam Guergour</span>
+
+
+      <div class="detail">
+
+        <span class="detail-label">
+          Lieu
+        </span>
+
+        <span class="detail-value">
+          Complexe Thermal Hammam Guergour
+        </span>
+
       </div>
+
     </div>
 
-    <button class="cta" id="mapBtn">Voir l'itinéraire</button>
+
+    <button class="cta" id="mapBtn">
+      Voir l'itinéraire
+    </button>
+
+    <br>
+
+    <button class="cta" id="calendarBtn">
+      Ajouter au calendrier
+    </button>
+
   </div>
+
 </section>
 
+
+<!-- =========================
+     FOOTER
+========================= -->
+
 <footer class="scene">
-  <div class="flourish bl">
-    <svg viewBox="0 0 140 140" fill="none">
-      <path d="M4,4 C30,6 40,20 40,40 C40,60 55,70 75,68" stroke="var(--gold)" stroke-width="1.3"/>
-      <use href="#blossom" x="6" y="4" width="26" height="26"/>
-    </svg>
+
+  <div class="content reveal">
+
+    <p class="eyebrow">
+      Avec tout notre amour
+    </p>
+
+    <p class="signature script">
+      Bouthaina & Yasser
+    </p>
+
+    <p class="footer-date">
+      8 Août 2026 · Hammam Guergour
+    </p>
+
   </div>
-  <div class="flourish br">
-    <svg viewBox="0 0 140 140" fill="none">
-      <path d="M4,4 C30,6 40,20 40,40 C40,60 55,70 75,68" stroke="var(--gold)" stroke-width="1.3"/>
-      <use href="#blossom" x="6" y="4" width="26" height="26"/>
-    </svg>
-  </div>
-  <div class="content">
-    <p class="eyebrow">Avec tout notre amour</p>
-    <p class="sign script">Bouthaina &amp; Yasser</p>
-    <p class="fineprint">8 Août 2026 · Hammam Guergour</p>
-  </div>
+
 </footer>
 
+
 <script>
-  const fireflyLayer = document.querySelector('.fireflies');
-  for(let i=0;i<18;i++){
-    const s = document.createElement('span');
-    s.style.left = Math.random()*100+'%';
-    s.style.top = (40+Math.random()*55)+'%';
-    s.style.animationDelay = (Math.random()*9)+'s';
-    s.style.animationDuration = (7+Math.random()*5)+'s';
-    fireflyLayer.appendChild(s);
+
+/* =========================
+   COMPTE À REBOURS
+========================= */
+
+const weddingDate =
+  new Date("2026-08-08T10:00:00+01:00").getTime();
+
+function updateCountdown() {
+
+  const now = new Date().getTime();
+
+  let difference = weddingDate - now;
+
+  if (difference < 0) {
+    difference = 0;
   }
 
-  const weddingDate = new Date('2026-08-08T10:00:00+01:00').getTime();
+  const days = Math.floor(
+    difference / (1000 * 60 * 60 * 24)
+  );
 
-  function updateCountdown(){
-    const now = new Date().getTime();
-    let diff = weddingDate - now;
-    if(diff < 0) diff = 0;
+  const hours = Math.floor(
+    (difference % (1000 * 60 * 60 * 24))
+    / (1000 * 60 * 60)
+  );
 
-    const days = Math.floor(diff / (1000*60*60*24));
-    const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
-    const mins = Math.floor((diff % (1000*60*60)) / (1000*60));
-    const secs = Math.floor((diff % (1000*60)) / 1000);
+  const minutes = Math.floor(
+    (difference % (1000 * 60 * 60))
+    / (1000 * 60)
+  );
 
-    document.getElementById('cd-days').textContent = String(days).padStart(2,'0');
-    document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
-    document.getElementById('cd-min').textContent = String(mins).padStart(2,'0');
-    document.getElementById('cd-sec').textContent = String(secs).padStart(2,'0');
+  const seconds = Math.floor(
+    (difference % (1000 * 60))
+    / 1000
+  );
+
+  document.getElementById("days").textContent =
+    String(days).padStart(2, "0");
+
+  document.getElementById("hours").textContent =
+    String(hours).padStart(2, "0");
+
+  document.getElementById("minutes").textContent =
+    String(minutes).padStart(2, "0");
+
+  document.getElementById("seconds").textContent =
+    String(seconds).padStart(2, "0");
+
+}
+
+updateCountdown();
+
+setInterval(updateCountdown, 1000);
+
+
+/* =========================
+   ANIMATION AU SCROLL
+========================= */
+
+const observer = new IntersectionObserver(
+
+  (entries) => {
+
+    entries.forEach((entry) => {
+
+      if (entry.isIntersecting) {
+
+        entry.target.classList.add("visible");
+
+      }
+
+    });
+
+  },
+
+  {
+    threshold: 0.15
   }
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
 
-  const venueName = "Complexe Thermal Hammam Guergour";
-  const query = encodeURIComponent(venueName);
+);
 
-  document.getElementById('mapBtn').addEventListener('click', function(){
-    const ua = navigator.userAgent || navigator.vendor || window.opera;
-    const isIOS = /iPad|iPhone|iPod/.test(ua) ||
-                  (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+document
+  .querySelectorAll(".reveal")
+  .forEach((element) => {
+
+    observer.observe(element);
+
+  });
+
+
+/* =========================
+   PARTICULES LUMINEUSES
+========================= */
+
+const particlesContainer =
+  document.getElementById("particles");
+
+for (let i = 0; i < 18; i++) {
+
+  const particle =
+    document.createElement("div");
+
+  particle.className = "particle";
+
+  particle.style.left =
+    Math.random() * 100 + "%";
+
+  particle.style.top =
+    40 + Math.random() * 60 + "%";
+
+  particle.style.animationDelay =
+    Math.random() * 10 + "s";
+
+  particle.style.animationDuration =
+    7 + Math.random() * 6 + "s";
+
+  particlesContainer.appendChild(particle);
+
+}
+
+
+/* =========================
+   ITINÉRAIRE
+========================= */
+
+document
+  .getElementById("mapBtn")
+  .addEventListener("click", function() {
+
+    const location =
+      encodeURIComponent(
+        "Complexe Thermal Hammam Guergour"
+      );
+
+    const isIOS =
+      /iPad|iPhone|iPod/.test(
+        navigator.userAgent
+      );
 
     let url;
-    if(isIOS){
-      url = 'https://maps.apple.com/?q=' + query;
+
+    if (isIOS) {
+
+      url =
+        "https://maps.apple.com/?q="
+        + location;
+
     } else {
-      url = 'https://www.google.com/maps/search/?api=1&query=' + query;
+
+      url =
+        "https://www.google.com/maps/search/?api=1&query="
+        + location;
+
     }
-    window.open(url, '_blank');
+
+    window.open(url, "_blank");
+
   });
+
+
+/* =========================
+   AJOUTER AU CALENDRIER
+========================= */
+
+document
+  .getElementById("calendarBtn")
+  .addEventListener("click", function() {
+
+    const start =
+      "20260808T090000Z";
+
+    const end =
+      "20260808T180000Z";
+
+    const title =
+      encodeURIComponent(
+        "Mariage de Bouthaina & Yasser"
+      );
+
+    const location =
+      encodeURIComponent(
+        "Complexe Thermal Hammam Guergour"
+      );
+
+    const details =
+      encodeURIComponent(
+        "Célébration du mariage de Bouthaina et Yasser"
+      );
+
+    const calendarUrl =
+      "https://calendar.google.com/calendar/render?action=TEMPLATE"
+      + "&text=" + title
+      + "&dates=" + start + "/" + end
+      + "&location=" + location
+      + "&details=" + details;
+
+    window.open(calendarUrl, "_blank");
+
+  });
+
 </script>
 
 </body>
