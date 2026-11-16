@@ -24,11 +24,11 @@ textarea{min-height:84px;resize:vertical}
 .row{display:flex;gap:8px;align-items:center;margin:6px 0}.row span{flex:1}.row select,.row input{flex:1}
 button{font:inherit;font-weight:600;border:0;border-radius:12px;padding:14px 18px;background:var(--pri);color:var(--bt);width:100%;margin-top:18px;cursor:pointer}
 button.sec{background:transparent;color:var(--pri);border:1px solid var(--pri);margin-top:10px}
+button:disabled{opacity:.65;cursor:default}
 .fb{margin-top:10px;padding:10px 12px;border-radius:10px;font-size:.92rem}
 .fb.ok{background:var(--okb);color:var(--ok)}.fb.ko{background:var(--kob);color:var(--ko)}
 .fb.self{background:var(--bg);border:1px dashed var(--bd);color:var(--tx)}
 .fb b{display:block;margin-bottom:2px}
-#res{position:relative}
 .score{font-size:2rem;font-weight:700;color:var(--pri);margin:0}
 .bar{height:8px;background:var(--bd);border-radius:6px;margin:8px 0 14px;overflow:hidden}.bar i{display:block;height:100%;background:var(--pri);width:0}
 </style>
@@ -44,6 +44,10 @@ button.sec{background:transparent;color:var(--pri);border:1px solid var(--pri);m
 <p class="sub" id="hint" style="text-align:center;margin-top:10px">Les questions à choix et les associations sont corrigées automatiquement. Pour les réponses écrites, vous comparez avec la réponse attendue et vous vous attribuez vos points.</p>
 </main>
 <script>
+/* ============ ENDPOINT GOOGLE APPS SCRIPT ============ */
+const ENDPOINT = "https://script.google.com/macros/s/AKfycbyH3I6HFmlaW--xzaosgpP5IQNXDs5AAw_Z9DbJLHoazUSco1Du309bWauOG5GeO9FK/exec";
+/* ==================================================== */
+
 const Q=[
 {part:"Partie 1 : Le lieu et l’organisation de la visite"},
 {t:"qcm",pts:1,q:"Dans quel bâtiment le Port Center est-il installé ?",o:["Le Silo d’Arenc","La gare maritime de la Major","Le Palais du Pharo","Le J4 du Mucem"],a:1,exp:"La gare maritime de la Major (24 bd Jacques Saadé)."},
@@ -65,7 +69,8 @@ const Q=[
 {part:"Partie 4 : Question de synthèse"},
 {t:"open",pts:4,q:"Votre entreprise organise une visite du Port Center pour un groupe de 20 personnes. Rédigez les informations pratiques à communiquer : lieu de rendez-vous, accès en transports, durée, réservation et un intérêt de la visite.",big:1,exp:"Rendez-vous au 24 bd Jacques Saadé, 13002 Marseille ; accès métro ligne 2 (Joliette), tram T2/T3 (Joliette), bus 49, 82, 82s, 60 ou 35, ou voiture par l’A55 (sortie Joliette) ; durée 1 h 30 ; réservation via l’Office de Tourisme (gratuit le samedi) ou par mail à portcenter@marseille-port.fr pour un groupe ; un intérêt (histoire du port, enjeux environnementaux, métiers…)."}
 ];
-const f=document.getElementById('f');let n=0;const idx=[];
+
+const f=document.getElementById('f');let n=0;const idx=[];const earned={};
 const sel=(id,opts)=>`<select id="${id}"><option value="">Choisir…</option>${opts.map((o,k)=>`<option value="${k}">${o}</option>`).join('')}</select>`;
 Q.forEach((q,i)=>{
  if(q.part){f.insertAdjacentHTML('beforeend',`<h2>${q.part}</h2>`);return}
@@ -78,39 +83,90 @@ Q.forEach((q,i)=>{
  f.insertAdjacentHTML('beforeend',`<div class="card" id="c${i}"><p class="q">${q.n}. ${q.q} <small>(${q.pts} pt${q.pts>1?'s':''})</small></p>${b}<div id="fb${i}"></div></div>`);
 });
 const norm=s=>(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/g,'');
-const earned={};
+let currentCode='';
+
 function check(){
  const nom=document.getElementById('nom').value.trim();
  Q.forEach((q,i)=>{
-  if(!q.t)return;let e=null,msg='';
+  if(!q.t)return;let e=null;
   if(q.t==='qcm'||q.t==='vf'){const r=document.querySelector(`input[name=q${i}]:checked`);const v=r&&(q.t==='qcm'?+r.value:r.value);e=(r&&v===q.a)?q.pts:0}
   if(q.t==='fill'){const a=norm(document.getElementById(`q${i}_0`).value),c=norm(document.getElementById(`q${i}_1`).value);e=(/^(1|1er|1ere|premier|premiere)$/.test(a)&&/^(4|4e|4eme|quatrieme)$/.test(c))?1:0}
   if(q.t==='cls'||q.t==='mat'){let ok=0;q.ans.forEach((a,k)=>{if(document.getElementById(`q${i}_${k}`).value===String(a))ok++});e=q.t==='cls'?(ok===q.ans.length?q.pts:0):ok*0.5}
   const fb=document.getElementById('fb'+i);
-  if(q.t==='open'){
-   const mine=document.getElementById('q'+i).value.trim()||'(pas de réponse)';
-   const st=[];for(let p=0;p<=q.pts;p+=0.5)st.push(`<option value="${p}">${p}</option>`);
-   fb.innerHTML=`<div class="fb self"><b>Votre réponse</b>${mine.replace(/</g,'&lt;')}</div><div class="fb ok"><b>Réponse attendue</b>${q.exp}</div><div class="row"><span>Mes points (sur ${q.pts})</span><select id="s${i}" style="max-width:110px">${st.join('')}</select></div>`;
-   earned[i]=0;document.getElementById('s'+i).onchange=e2=>{earned[i]=+e2.target.value;total()};
-  }else{
-   earned[i]=e;const full=e===q.pts;
-   fb.innerHTML=`<div class="fb ${full?'ok':'ko'}"><b>${full?'Correct':(e>0?'Partiellement correct ('+e+' pt)':'Incorrect')}</b>${full?'':'Réponse attendue : '+q.exp}</div>`;
-  }
+  if(q.t==='open'){const mine=document.getElementById('q'+i).value.trim()||'(pas de réponse)';const st=[];for(let p=0;p<=q.pts;p+=0.5)st.push(`<option value="${p}">${p}</option>`);fb.innerHTML=`<div class="fb self"><b>Votre réponse</b>${mine.replace(/</g,'&lt;')}</div><div class="fb ok"><b>Réponse attendue</b>${q.exp}</div><div class="row"><span>Mes points (sur ${q.pts})</span><select id="s${i}" style="max-width:110px">${st.join('')}</select></div>`;earned[i]=0;document.getElementById('s'+i).onchange=e2=>{earned[i]=+e2.target.value;total()};}
+  else{earned[i]=e;const full=e===q.pts;fb.innerHTML=`<div class="fb ${full?'ok':'ko'}"><b>${full?'Correct':(e>0?'Partiellement correct ('+e+' pt)':'Incorrect')}</b>${full?'':'Réponse attendue : '+q.exp}</div>`;}
  });
  f.querySelectorAll('input,textarea,select').forEach(x=>{if(!x.id.startsWith('s'))x.disabled=true});
  document.getElementById('nom').disabled=true;
- const go=document.getElementById('go');go.style.display='none';document.getElementById('hint').style.display='none';
- document.getElementById('res').innerHTML=`<div class="card"><p class="sub" style="margin:0">Votre score</p><p class="score"><span id="sc">0</span> / 20</p><div class="bar"><i id="br"></i></div><p class="sub">Descendez pour lire les corrections. Pour les questions écrites, attribuez-vous vos points : le score se met à jour.</p><textarea id="sum" readonly style="min-height:120px;font-size:.85rem"></textarea><button type="button" id="cp">Copier mon résultat</button><button type="button" class="sec" id="rs">Recommencer</button></div>`;
+ document.getElementById('go').style.display='none';
+ document.getElementById('hint').style.display='none';
+ window.NOM=nom||'(nom non renseigné)';
+ document.getElementById('res').innerHTML=`
+ <div class="card">
+  <p class="sub" style="margin:0">Votre score</p>
+  <p class="score"><span id="sc">0</span> / 20</p>
+  <div class="bar"><i id="br"></i></div>
+  <p class="sub">Descendez pour lire les corrections. Pour les questions écrites, attribuez-vous vos points : le score se met à jour.</p>
+  <textarea id="sum" readonly style="min-height:110px;font-size:.85rem"></textarea>
+ </div>
+ <div class="card">
+  <p class="q">📤 Envoyer mes réponses</p>
+  <p class="sub">Cliquez une seule fois. Votre relevé sera transmis automatiquement à l'enseignante.</p>
+  <button type="button" id="snd">📨 Envoyer à Mme Moulin</button>
+  <p class="sub" id="sndMsg" style="margin-top:12px;display:none;color:var(--ok);font-weight:600;"></p>
+ </div>
+ <button type="button" class="sec" id="rs">↻ Recommencer</button>`;
  document.getElementById('rs').onclick=()=>location.reload();
- document.getElementById('cp').onclick=async()=>{const t=document.getElementById('sum');try{await navigator.clipboard.writeText(t.value);document.getElementById('cp').textContent='Copié ✓'}catch(e){t.select();try{document.execCommand('copy');document.getElementById('cp').textContent='Copié ✓'}catch(e2){document.getElementById('cp').textContent='Sélectionnez le texte et copiez-le'}}};
- window.NOM=nom||'(nom non renseigné)';total();
+
+ if(ENDPOINT){
+  if(!document.getElementById('hidden_iframe')){
+   const ifr=document.createElement('iframe');
+   ifr.name='hidden_iframe';ifr.id='hidden_iframe';ifr.style.display='none';
+   document.body.appendChild(ifr);
+  }
+  document.getElementById('snd').onclick=()=>{
+   const btn=document.getElementById('snd');
+   btn.textContent='Envoi…';btn.disabled=true;
+   const frm=document.createElement('form');
+   frm.method='POST';frm.action=ENDPOINT;frm.target='hidden_iframe';frm.style.display='none';
+   const inp=document.createElement('input');inp.type='hidden';inp.name='data';inp.value=currentCode;
+   frm.appendChild(inp);document.body.appendChild(frm);frm.submit();document.body.removeChild(frm);
+   setTimeout(()=>{
+    btn.textContent='✅ Envoyé';
+    const m=document.getElementById('sndMsg');
+    m.style.display='block';
+    m.textContent='Votre relevé a bien été transmis à Mme Moulin.';
+   },1500);
+  };
+ } else {
+  document.getElementById('snd').disabled=true;
+  document.getElementById('snd').textContent='⚠️ Envoi non configuré';
+ }
+ total();
  document.getElementById('res').scrollIntoView({behavior:'smooth'});
 }
+
 function total(){
- let s=0;const L=[];idx.forEach(i=>{const q=Q[i],e=earned[i]||0;s+=e;L.push(`Q${q.n} : ${e}/${q.pts}`)});
- document.getElementById('sc').textContent=s;document.getElementById('br').style.width=(s/20*100)+'%';
+ let s=0;const L=[];
+ idx.forEach(i=>{const q=Q[i],e=earned[i]||0;s+=e;L.push(`Q${q.n} : ${e}/${q.pts}`)});
+ document.getElementById('sc').textContent=s;
+ document.getElementById('br').style.width=(s/20*100)+'%';
  document.getElementById('sum').value=`Port Center Marseille – ${window.NOM}\nScore : ${s} / 20\n${L.join(' | ')}`;
+ const reps=idx.map(i=>{const q=Q[i];let rep='';
+  if(q.t==='qcm'){const r=document.querySelector(`input[name=q${i}]:checked`);rep=r?q.o[+r.value]:'';}
+  else if(q.t==='vf'){const r=document.querySelector(`input[name=q${i}]:checked`);rep=r?(r.value==='v'?'Vrai':'Faux'):'';}
+  else if(q.t==='open'){rep=(document.getElementById('q'+i).value||'').trim();}
+  else if(q.t==='fill'){rep=[0,1].map(k=>(document.getElementById(`q${i}_${k}`).value||'').trim()).join(' / ');}
+  else if(q.t==='cls'||q.t==='mat'){rep=q.items.map((it,k)=>{const el=document.getElementById(`q${i}_${k}`);return it+' = '+(el.value===''?'—':q.opts[+el.value]);}).join(' | ');}
+  return{n:q.n,pts:q.pts,obtu:earned[i]||0,rep};
+ });
+ const rec={v:1,nom:(document.getElementById('nom').value||'').trim()||'(sans nom)',date:new Date().toISOString(),score:s,reps};
+ const json=JSON.stringify(rec);
+ const bytes=new TextEncoder().encode(json);
+ let bin='';for(const b of bytes)bin+=String.fromCharCode(b);
+ currentCode=btoa(bin);
 }
+
 document.getElementById('go').onclick=()=>{
  const miss=Q.filter((q,i)=>q.t&&((q.t==='qcm'||q.t==='vf')?!document.querySelector(`input[name=q${i}]:checked`):q.t==='open'?!document.getElementById('q'+i).value.trim():false)).length;
  if(miss&&!confirm(`Il reste ${miss} question(s) sans réponse. Valider quand même ?`))return;
